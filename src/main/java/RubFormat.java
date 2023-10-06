@@ -5,7 +5,7 @@ public class RubFormat {
         int x = (int) sum % 10;
         return switch (x) {
             case 1 -> "рубль.";
-            case 2, 3, 4 -> " рубля.";
+            case 2, 3, 4 -> "рубля.";
             default -> "рублей.";
         };
     }

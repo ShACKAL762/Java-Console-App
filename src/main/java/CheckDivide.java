@@ -5,12 +5,14 @@ import java.io.InputStreamReader;
 public class CheckDivide {
     public CheckDivide(){
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        order(bufferedReader, members(bufferedReader));
+        order(bufferedReader);
     }
 
     private static int members(BufferedReader bufferedReader) {
 
         int members;
+
+
 
         System.out.println("Введите количество человек за столом?");
         while (true) {
@@ -32,8 +34,10 @@ public class CheckDivide {
         }
         return members;
     }
-    private static void order(BufferedReader bufferedReader, int member){
+    private static void order(BufferedReader bufferedReader){
 
+        int member = members(bufferedReader);
+        final String CHECK_CLOSE ="завершить";
         double sum = 0;
         StringBuilder check = new StringBuilder("Добавленные товары: ");
         String inputLine;
@@ -44,16 +48,17 @@ public class CheckDivide {
             try {
 
                 inputLine = bufferedReader.readLine();
-                if (inputLine.trim().equalsIgnoreCase("завершить")){
+                if (inputLine.trim().equalsIgnoreCase(CHECK_CLOSE)){
                     System.out.println(check);
                     System.out.println(
                             "Общая сумма: " +
-                                    String.format("%.2f",sum).replace(",",".") +
+                                    String.format("%.2f ",sum).replace(",",".") +
                                     RubFormat.format(sum));
                     System.out.println(
                             "С каждого по: " +
                                     String.format("%.2f ",sum/member).replace(",",".") +
                                     RubFormat.format(sum/member));
+
                     break;
                 }
 
@@ -64,7 +69,12 @@ public class CheckDivide {
                     if (Double.parseDouble(buffer[1]) <0.01)
                         throw new NumberFormatException();
                     sum = sum + Double.parseDouble(buffer[1]);
-                    check.append("\n").append(buffer[0]).append(" ").append(buffer[1]);
+
+                    check.append("\n")
+                            .append(buffer[0])
+                            .append(" ")
+                            .append(buffer[1]);
+
                     System.out.println("Товар добавлен успешно!");
                     System.out.println("Хотите заказать, что то еще? Если хотите закрыть чек введите: \"Завершить\"");
 
